@@ -1,0 +1,157 @@
+* {
+	margin: 0;
+    padding: 0;
+}
+
+html {
+    position: relative; 
+    min-height: 100%;
+}
+
+body {
+    width: 100%; 
+    margin: 0 auto;
+    height: 100%;
+}
+
+header {
+    height: 80px;
+    background-color: rgb(22, 22, 22);
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+}
+
+main {
+    height: 450px;
+    margin: 0 100px;
+    padding-bottom: 80px;
+}
+
+form {
+    margin: 40px 50px;
+}
+
+.input {
+    width: 90%;
+    height: 30px; 
+    /* outline: none;s */
+    /* background: url(img/magnifier.png) no-repeat 50% 50%;    */
+}
+
+/* .magnifier {
+    width: 30px;
+    height: 30px; 
+} */
+
+.submit {
+    border: 0;
+    width: 8%;
+    height: 30px;
+    color: white;
+    background-color: darkred;
+}
+
+.submit:focus {
+    outline: none; 
+}
+
+.wrapper {
+    width: 95%;
+    height: 400px; 
+    margin: 50px 25px;
+}
+
+.movies {
+    display: flex;
+}
+
+.movie {
+    width: 380px;
+    height: 400px;
+    /* overflow: hidden; */
+    text-align: center;
+    /* margin: 0 1%; */
+}
+
+.title {
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: bold;
+    padding-bottom: 3%;
+}
+
+.poster {
+    width: 260px;
+    height: 370px;
+}
+
+.year {
+    font-weight: bold;
+    padding: 1% 0;
+}
+
+.star {
+    font-weight: bold;
+}
+
+.star img {
+    width: 14px;
+    height: 14px;
+    padding-right: 5px;
+}
+
+.switcher-left {
+    width: 14px;
+    height: 20px;
+    position: relative;
+    bottom: 185px;
+    left: 0px;
+}
+
+.switcher-right {
+    width: 14px;
+    height: 20px;
+    position: relative;
+    bottom: 185px;
+    left: 1235px;
+}
+
+footer {
+    height: 40px;
+    background-color: rgb(22, 22, 22);
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.rs-group {
+    width: 50%;
+    padding-left: 10%;
+}
+
+.rs-name {
+    width: 50%;
+    display: flex;
+    padding-left: 55%;
+}
+
+footer p {
+    color: white;
+    padding-top: 10px;
+}
+
+.rs-name img {
+    width: 20px;
+    height: 20px;
+    margin: 10px 15px 0 0;
+    border-radius: 100px;
+}
+
+.submit, .switcher-left:hover, .switcher-right:hover {
+    cursor: pointer;
+}

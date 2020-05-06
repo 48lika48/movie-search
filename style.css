@@ -71,6 +71,7 @@ form {
 
 .movies {
     display: flex;
+    transition: transform 1s ease;
 }
 
 .movie {

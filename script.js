@@ -18,18 +18,8 @@ let movies = document.createElement('div');
 movies.classList.add('movies');
 wrapper.append(movies);
 
-let films = [
-    {Title: "Requiem for a Dream", Year: "2000", Poster: "img/Requiem_for_a_dream.jpg", Score: "8.3"},
-    {Title: "A Nightmare on Elm Street", Year: "1987", Poster: "img/A_Nightmare_on_Elm_Street.jpg", Score: "6.6"},
-    {Title: "Dream House", Year: "2011", Poster: "img/Dream_House.jpeg", Score: "6.0"},
-    {Title: "Goal! The Dream Begins", Year: "2005", Poster: "img/Goal!_The_Dream_Begins.jpg", Score: "6.7"},
-    {Title: "Requiem for a Dream", Year: "2000", Poster: "img/Requiem_for_a_dream.jpg", Score: "8.3"},
-    {Title: "A Nightmare on Elm Street", Year: "1987", Poster: "img/A_Nightmare_on_Elm_Street.jpg", Score: "6.6"},
-    {Title: "Dream House", Year: "2011", Poster: "img/Dream_House.jpeg", Score: "6.0"},
-    {Title: "Goal! The Dream Begins", Year: "2005", Poster: "img/Goal!_The_Dream_Begins.jpg", Score: "6.7"}
-]
-
-films.forEach((item)=>{
+function fillFilmCards(films) {
+  films.forEach((item)=>{
     // add movie
     let movie = document.createElement('div');
     movie.classList.add('movie');
@@ -60,19 +50,25 @@ films.forEach((item)=>{
     star.append(starImg);
     star.append(score);
     movie.append(star);
-})
+  })
+}
 
-// add switchers
-let switcherLeft = document.createElement('img');
-switcherLeft.classList.add('switcher-left');
-switcherLeft.src = 'img/switcher_left.png';
-let switcherRight = document.createElement('img');
-switcherRight.classList.add('switcher-right');
-switcherRight.src = 'img/switcher_right.png';
-wrapper.append(switcherLeft);
-wrapper.append(switcherRight);
+//API
+async function findFilms(inputText, page) {
+  let url = `http://www.omdbapi.com/?apikey=7fe96ade&s=${inputText}&page=${page}`;
+  let response = await fetch(url);
+  let obj = await response.json();
+  return obj;
+}
+let promise = findFilms('dream', '1');
+let fulfilled = promise.then(result => {
+  //return "Fulfilled: " + result;
+  
+  let films = result.Search;
+  fillFilmCards(films);
 
 // slider
+let multiItemSlider = (function () {
 wrapper.classList.add('slider');
 movies.classList.add('slider__wrapper');
 switcherLeft.classList.add('slider__control');
@@ -80,8 +76,6 @@ switcherLeft.classList.add('slider__control_left');
 switcherRight.classList.add('slider__control');
 switcherRight.classList.add('slider__control_right');
 switcherRight.classList.add('slider__control_show');
-
-let multiItemSlider = (function () {
     return function (selector, config) {
         let
         _mainElement = document.querySelector(selector), // основный элемент блока
@@ -93,7 +87,7 @@ let multiItemSlider = (function () {
         _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
         _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
         _positionLeftItem = 0, // позиция левого активного элемента
-        _transform = 0, // значение транфсофрмации .slider_wrapper
+        _transform = 0, // значение транфсформации .slider_wrapper
         _step = _itemWidth / _wrapperWidth * 122, // величина шага (для трансформации)
         _items = []; // массив элементов
         // наполнение массива _items
@@ -167,3 +161,23 @@ let multiItemSlider = (function () {
 }());
 
 let slider = multiItemSlider('.slider')
+
+});
+
+//next value
+let inputText = input.value; 
+
+
+
+// add switchers
+let switcherLeft = document.createElement('img');
+switcherLeft.classList.add('switcher-left');
+switcherLeft.src = 'img/switcher_left.png';
+let switcherRight = document.createElement('img');
+switcherRight.classList.add('switcher-right');
+switcherRight.src = 'img/switcher_right.png';
+wrapper.append(switcherLeft);
+wrapper.append(switcherRight);
+
+
+

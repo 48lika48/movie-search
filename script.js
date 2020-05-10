@@ -3,11 +3,11 @@ const main = document.querySelector('main');
 
 //set focus
 function setFocus() {
-    document.getElementById('input').focus();
+  document.getElementById('input').focus();
 }
 window.onload = setFocus();
 input.onblur = function blur() {
-    document.getElementById('input').focus();
+  document.getElementById('input').focus();
 };
 
 //add movies
@@ -57,8 +57,9 @@ function fillFilmCards(films) {
 }
 
 //API
+let inputText = 'dream';
 async function findFilms(inputText, page) {
-  let url = `http://www.omdbapi.com/?apikey=7fe96ade&s=${inputText}&page=${page}`;
+  let url = `https://www.omdbapi.com/?apikey=7fe96ade&s=${inputText}&page=${page}`;
   let response = await fetch(url);
   let obj = await response.json();
   return obj;
@@ -67,109 +68,15 @@ let promise = findFilms('dream', '1');
 promise.then(result => {
   let films = result.Search;
   fillFilmCards(films);
-
-// slider
-let multiItemSlider = (function () {
-wrapper.classList.add('slider');
-movies.classList.add('slider__wrapper');
-switcherLeft.classList.add('slider__control');
-switcherLeft.classList.add('slider__control_left');
-switcherRight.classList.add('slider__control');
-switcherRight.classList.add('slider__control_right');
-switcherRight.classList.add('slider__control_show');
-    return function (selector, config) {
-        let
-        _mainElement = document.querySelector(selector), // основный элемент блока
-        _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
-        _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
-        _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
-        _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
-        _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
-        _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
-        _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
-        _positionLeftItem = 0, // позиция левого активного элемента
-        _transform = 0, // значение транфсформации .slider_wrapper
-        _step = _itemWidth / _wrapperWidth * 121.9, // величина шага (для трансформации)
-        _items = []; // массив элементов
-        // наполнение массива _items
-        _sliderItems.forEach(function (item, index) {
-            _items.push({ item: item, position: index, transform: 0 });
-        });
-
-        let position = {
-            getMin: 0,
-            getMax: _items.length - 1,
-        }
-
-        let _transformItem = function (direction) {
-        if (direction === 'right') {
-          if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
-            return;
-          }
-          if (!_sliderControlLeft.classList.contains('slider__control_show')) {
-            _sliderControlLeft.classList.add('slider__control_show');
-          }
-          if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
-            _sliderControlRight.classList.remove('slider__control_show');
-          }
-          _positionLeftItem++;
-          _transform -= _step;
-        }
-        if (direction === 'left') {
-          if (_positionLeftItem <= position.getMin) {
-            return;
-          }
-          if (!_sliderControlRight.classList.contains('slider__control_show')) {
-            _sliderControlRight.classList.add('slider__control_show');
-          }
-          if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
-            _sliderControlLeft.classList.remove('slider__control_show');
-          }
-          _positionLeftItem--;
-          _transform += _step;
-        }
-        _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
-        }
-
-        // обработчик события click для кнопок "назад" и "вперед"
-        let _controlClick = function (e) {
-          if (e.target.classList.contains('slider__control')) {
-            e.preventDefault();
-            let direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
-            _transformItem(direction);
-          }
-        };
-
-        let _setUpListeners = function () {
-          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для события click
-          _sliderControls.forEach(function (item) {
-            item.addEventListener('click', _controlClick);
-          });
-        }
-
-        // инициализация
-        _setUpListeners();
-
-        return {
-          right: function () { // метод right
-            _transformItem('right');
-          },
-          left: function () { // метод left
-            _transformItem('left');
-          }
-        }
-    }
-}());
-
-let slider = multiItemSlider('.slider')
-
 });
 
 //next value
 let submit = document.getElementById('submit');
 submit.addEventListener('click', function (event) {
   event.preventDefault();
-  let inputText = input.value;
+  movies.style.transform = 'translateX(0)';
+  counter = 0;
+  inputText = input.value;
   movies.textContent = '';
   
   let promise = findFilms(inputText, page);
@@ -182,102 +89,7 @@ submit.addEventListener('click', function (event) {
       let films = result.Search;
       fillFilmCards(films, '1');
     }
-// slider
-let multiItemSlider = (function () {
-wrapper.classList.add('slider');
-movies.classList.add('slider__wrapper');
-switcherLeft.classList.add('slider__control');
-switcherLeft.classList.add('slider__control_left');
-switcherRight.classList.add('slider__control');
-switcherRight.classList.add('slider__control_right');
-switcherRight.classList.add('slider__control_show');
-    return function (selector, config) {
-        let
-        _mainElement = document.querySelector(selector), // основный элемент блока
-        _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
-        _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
-        _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
-        _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
-        _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
-        _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
-        _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
-        _positionLeftItem = 0, // позиция левого активного элемента
-        _transform = 0, // значение транфсформации .slider_wrapper
-        _step = _itemWidth / _wrapperWidth * 122, // величина шага (для трансформации)
-        _items = []; // массив элементов
-        // наполнение массива _items
-        _sliderItems.forEach(function (item, index) {
-            _items.push({ item: item, position: index, transform: 0 });
-        });
-
-        let position = {
-            getMin: 0,
-            getMax: _items.length - 1,
-        }
-
-        let _transformItem = function (direction) {
-        if (direction === 'right') {
-          if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
-            return;
-          }
-          if (!_sliderControlLeft.classList.contains('slider__control_show')) {
-            _sliderControlLeft.classList.add('slider__control_show');
-          }
-          if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
-            _sliderControlRight.classList.remove('slider__control_show');
-          }
-          _positionLeftItem++;
-          _transform -= _step;
-        }
-        if (direction === 'left') {
-          if (_positionLeftItem <= position.getMin) {
-            return;
-          }
-          if (!_sliderControlRight.classList.contains('slider__control_show')) {
-            _sliderControlRight.classList.add('slider__control_show');
-          }
-          if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
-            _sliderControlLeft.classList.remove('slider__control_show');
-          }
-          _positionLeftItem--;
-          _transform += _step;
-        }
-        _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
-        }
-
-        // обработчик события click для кнопок "назад" и "вперед"
-        let _controlClick = function (e) {
-          if (e.target.classList.contains('slider__control')) {
-            e.preventDefault();
-            let direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
-            _transformItem(direction);
-          }
-        };
-
-        let _setUpListeners = function () {
-          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для события click
-          _sliderControls.forEach(function (item) {
-            item.addEventListener('click', _controlClick);
-          });
-        }
-
-        // инициализация
-        _setUpListeners();
-
-        return {
-          right: function () { // метод right
-            _transformItem('right');
-          },
-          left: function () { // метод left
-            _transformItem('left');
-          }
-        }
-    }
-}());
-
-let slider = multiItemSlider('.slider')
-
-});
+  });
 })
 
 // add switchers
@@ -290,7 +102,6 @@ switcherRight.src = 'img/switcher_right.png';
 wrapper.append(switcherLeft);
 wrapper.append(switcherRight);
 
-let inputText = 'dream';
 let counter = 0;
 let page = 1;
 switcherRight.addEventListener('click', function(){
@@ -301,107 +112,19 @@ switcherRight.addEventListener('click', function(){
     promise.then(result => {
       let films = result.Search;
       fillFilmCards(films, page);
-    
-    // slider
-    let multiItemSlider = (function () {
-    wrapper.classList.add('slider');
-    movies.classList.add('slider__wrapper');
-    switcherLeft.classList.add('slider__control');
-    switcherLeft.classList.add('slider__control_left');
-    switcherRight.classList.add('slider__control');
-    switcherRight.classList.add('slider__control_right');
-    switcherRight.classList.add('slider__control_show');
-        return function (selector, config) {
-            let
-            _mainElement = document.querySelector(selector), // основный элемент блока
-            _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
-            _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
-            _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
-            _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
-            _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
-            _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
-            _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
-            _positionLeftItem = 0, // позиция левого активного элемента
-            _transform = 0, // значение транфсформации .slider_wrapper
-            _step = _itemWidth / _wrapperWidth * 121.9, // величина шага (для трансформации)
-            _items = []; // массив элементов
-            // наполнение массива _items
-            _sliderItems.forEach(function (item, index) {
-                _items.push({ item: item, position: index, transform: 0 });
-            });
-    
-            let position = {
-                getMin: 0,
-                getMax: _items.length - 1,
-            }
-    
-            let _transformItem = function (direction) {
-            if (direction === 'right') {
-              if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
-                return;
-              }
-              if (!_sliderControlLeft.classList.contains('slider__control_show')) {
-                _sliderControlLeft.classList.add('slider__control_show');
-              }
-              if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
-                _sliderControlRight.classList.remove('slider__control_show');
-              }
-              _positionLeftItem++;
-              _transform -= _step;
-            }
-            if (direction === 'left') {
-              if (_positionLeftItem <= position.getMin) {
-                return;
-              }
-              if (!_sliderControlRight.classList.contains('slider__control_show')) {
-                _sliderControlRight.classList.add('slider__control_show');
-              }
-              if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
-                _sliderControlLeft.classList.remove('slider__control_show');
-              }
-              _positionLeftItem--;
-              _transform += _step;
-            }
-            _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
-            }
-    
-            // обработчик события click для кнопок "назад" и "вперед"
-            let _controlClick = function (e) {
-              if (e.target.classList.contains('slider__control')) {
-                e.preventDefault();
-                let direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
-                _transformItem(direction);
-              }
-            };
-    
-            let _setUpListeners = function () {
-              // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для события click
-              _sliderControls.forEach(function (item) {
-                item.addEventListener('click', _controlClick);
-              });
-            }
-    
-            // инициализация
-            _setUpListeners();
-    
-            return {
-              right: function () { // метод right
-                _transformItem('right');
-              },
-              left: function () { // метод left
-                _transformItem('left');
-              }
-            }
-        }
-    }());
-    
-    let slider = multiItemSlider('.slider')
-    
     });
   }
+  let promise = findFilms(inputText, page);
+    promise.then(result => {
+      if((counter) < result.totalResults - 3){
+        movies.style.transform = `translateX(${-317 * counter}px)`;
+      }
+    });
 })
 switcherLeft.addEventListener('click', function(){
   if(counter > 0){
     counter --;
+    movies.style.transform = `translateX(${-317 * counter}px)`;
   }
 })
+

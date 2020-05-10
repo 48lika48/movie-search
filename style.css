@@ -55,11 +55,11 @@ form {
     outline: none; 
 }
 
-.error {
+#error {
+    height: 14px;
     text-align: center;
     font-weight: bold;
     color: #ce5d56;
-    visibility: hidden;
 }
 
 .wrapper {
@@ -79,6 +79,10 @@ form {
     height: 450px;
     text-align: center;
     margin: 0 2.2%;
+}
+
+a {
+    color: black;
 }
 
 .title {
@@ -163,3 +167,15 @@ footer p {
 .submit, .switcher-left:hover, .switcher-right:hover {
     cursor: pointer;
 }
+
+/* @media screen and (max-width: 680px) {
+    body {
+		width: 680px;
+    }
+    .switcher {
+        left: 65%;
+    }
+    .wrapper {
+        height: 1180px;
+    }
+} */

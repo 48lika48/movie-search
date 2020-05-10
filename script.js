@@ -59,7 +59,14 @@ function fillFilmCards(films) {
 //API
 let inputText = 'dream';
 async function findFilms(inputText, page) {
-  let url = `https://www.omdbapi.com/?apikey=7fe96ade&s=${inputText}&page=${page}`;
+  
+  //translation
+  const translate = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200510T182941Z.10dc9ce1c0f7751b.057e8591548fb19379b2e0927318d75e825395f1&text=${inputText}&lang=ru-en`;
+  const res = await fetch(translate);
+  const data = await res.json();
+  let translateWord = data.text[0];
+
+  let url = `https://www.omdbapi.com/?apikey=7fe96ade&s=${translateWord}&page=${page}`;
   let response = await fetch(url);
   let obj = await response.json();
   return obj;
@@ -127,4 +134,3 @@ switcherLeft.addEventListener('click', function(){
     movies.style.transform = `translateX(${-317 * counter}px)`;
   }
 })
-

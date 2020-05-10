@@ -168,14 +168,77 @@ footer p {
     cursor: pointer;
 }
 
-/* @media screen and (max-width: 680px) {
-    body {
-		width: 680px;
+@media screen and (max-width: 900px) {
+    .input {
+        width: 85%;
     }
-    .switcher {
-        left: 65%;
+    .submit {
+        width: 13%;
     }
-    .wrapper {
-        height: 1180px;
+    .switcher-left {
+        left: 0%;
     }
-} */
+}
+@media screen and (max-width: 750px) {
+    .input {
+        width: 80%;
+    }
+    .submit {
+        width: 18%;
+    }
+    .switcher-right {
+        left: 94.5%;
+    }
+    .rs-group {
+        padding-left: 12%;
+    }
+    .rs-name {
+        padding-left: 40%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .input {
+        width: 75%;
+        padding-left: 35px;
+    }
+    .submit {
+        width: 23%;
+    }
+    .rs-group {
+        padding-left: 10%;
+    }
+    .rs-name {
+        padding-left: 30%;
+    }
+}
+@media screen and (max-width: 450px) {
+    .input {
+        width: 50%;
+    }
+    .submit {
+        width: 30%;
+    }
+    .switcher-right {
+        left: 90%;
+    }
+    .rs-group {
+        padding-left: 5%;
+    }
+    .rs-name {
+        padding-left: 20%;
+    }
+}
+@media screen and (max-width: 320px) {
+    .input {
+        width: 50%;
+    } 
+    .submit {
+        width: 38%;
+    }
+    .rs-group {
+        padding-left: 3%;
+    }
+    .rs-name {
+        padding-left: 10%;
+    }
+}
